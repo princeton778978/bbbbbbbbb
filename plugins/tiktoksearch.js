@@ -37,21 +37,21 @@ async function tiktokSearch(query) {
 
 /* ───── Command ───── */
 cmd({
-  pattern: "tiktoksearch",
-  alias: ["ts", "ttsearch"],
+  pattern: "tiktok",
+  alias: ["ts", "ttsearch", "tt"],
   desc: "Search TikTok videos with Download Button",
   react: "🎵",
   category: "download",
   filename: __filename
 }, async (conn, m, store, { from, args, reply, prefix }) => {
 
-  if (!args.length) return reply(`🔎 *Usage:* ${prefix}ts <keyword>`);
+  if (!args.length) return reply(`*AP NE TIKTOK VIDEO DOWNLOAD KARNI HAI TO AP US TIKTOK VIDEO KA LINK COPY KAR LO  🤔*\n*TO AP ESE LIKHO ☺️*\n\n*TIKTOK ❮TIKTOK VIDEO LINK❯*\n*JAB AP ESE LIKHO GE TO APKI TIKTOK VIDEO 😊 DOWNLOAD KAR KE YAHA PER BHEJ DE JAYE GE 😍❣️*`);
 
   const query = args.join(" ");
   
   try {
     const results = await tiktokSearch(query);
-    if (!results) return reply("❌ No videos found.");
+    if (!results) return reply("*TIKTOK VIDEO NAHI MIL RAHI SORRY 😔*");
 
     const cards = await Promise.all(
       results.slice(0, 6).map(async (vid) => {
@@ -63,7 +63,7 @@ cmd({
 
         return {
           body: proto.Message.InteractiveMessage.Body.fromObject({ 
-            text: vid.title || "TikTok Video" 
+            text: vid.title || "*👑 TIKTOK VIDEO 👑*" 
           }),
           footer: proto.Message.InteractiveMessage.Footer.fromObject({
             text: "Select to Download"
@@ -91,8 +91,8 @@ cmd({
       viewOnceMessage: {
         message: {
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-            body: { text: `🔎 *TikTok Search:* ${query}` },
-            footer: { text: "BILAL-MD TikTok Downloader" },
+            body: { text: `*TIKTOK SEARCH :❯* ${query}` },
+            footer: { text: "*BILAL-MD TIKTOK*" },
             carouselMessage: { cards }
           })
         }
@@ -119,7 +119,7 @@ cmd({
     const videoUrl = args[0];
     await conn.sendMessage(from, { 
       video: { url: videoUrl }, 
-      caption: "Powered by Bilal MD",
+      caption: "*👑 BY :❯ BILAL-MD 👑*",
       fileName: `tiktok.mp4` 
     }, { quoted: m });
   } catch (e) {
