@@ -14,12 +14,12 @@ async(conn, mek, m, { args, isOwner, reply, from }) => {
 
     if (mode === 'on' || mode === 'enable') {
         await setAntideleteStatus(from, true);
-        await reply("🛡️ *Anti-Delete ENABLED*");
+        await reply("*👑 ANTI-DELETE ACTIVATED 👑*");
     } else if (mode === 'off' || mode === 'disable') {
         await setAntideleteStatus(from, false);
-        await reply("💤 *Anti-Delete DISABLED*");
+        await reply("*👑 ANTI-DELETE DE-ACTIVATED 👑*");
     } else {
         const current = await getAntideleteStatus(from);
-        await reply(`*Current Status:* ${current ? "ON ✅" : "OFF ❌"}\nUsage: .antidelete on/off`);
+        await reply(`*ABHI ANTI-DELETE* ${current ? "ON" : "OFF"} HAI 😊*`);
     }
 });
