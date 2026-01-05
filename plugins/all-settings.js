@@ -26,13 +26,13 @@ const updateConfig = async (key, value, botNumber, config, reply) => {
 
 cmd({
     pattern: "autorecording",
-    alias: ["autorec"],
+    alias: ["autorec", "arecording"],
     desc: "Enable/Disable auto recording simulation",
     category: "settings",
-    react: "🎤"
+    react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -40,19 +40,19 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('AUTO_RECORDING', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.AUTO_RECORDING}\nUsage: .autorecording on/off`);
+        reply(`*ABHI :❯ ${config.AUTO_RECORDING} HAI 😊*\n\n*AUTO RECORDING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮AUTORECORDING ON❯ 👑*\n*AUTORECORDING OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮AUTORECORDING OFF❯ 👑*`);
     }
 });
 
 cmd({
     pattern: "autotyping",
-    alias: ["autotype"],
+    alias: ["autotype", "atyping"],
     desc: "Enable/Disable auto typing simulation",
     category: "settings",
-    react: "⌨️"
+    react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -60,7 +60,7 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('AUTO_TYPING', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.AUTO_TYPING}\nUsage: .autotyping on/off`);
+        reply(`*ABHI :❯ ${config.AUTO_TYPING} HAI 😊*\n\n*AUTO TYPING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮AUTOTYPING ON❯ 👑*\n*AUTOTYPING OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮AUTOTYPING OFF❯ 👑*`);
     }
 });
 
@@ -70,12 +70,13 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
 
 cmd({
     pattern: "anticall",
+    alias: "acall",
     desc: "Auto reject calls",
     category: "settings",
-    react: "📵"
+    react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI ☺️*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -83,7 +84,7 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('ANTI_CALL', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.ANTI_CALL}\nUsage: .anticall on/off`);
+        reply(`*ABHI :❯ ${config.AUTO_RECORDING} HAI 😊*\n\n*JO BHI CALL KARE GA KHUD HI REJECT HO JAYE GE 😃 YE SETTING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮ANTICALL ON❯ 👑*\n*ANTICALL OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮ANTICALL OFF❯ 👑*`);
     }
 });
 
@@ -95,10 +96,10 @@ cmd({
     pattern: "welcome",
     desc: "Enable/Disable welcome messages",
     category: "settings",
-    react: "👋"
+    react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
-    if (!isOwner) return reply("🚫 Owner only!");
+    if (!isOwner) return reply("*YEH COMMAND SIRF MERE LIE HAI 😎*");
     const value = args[0]?.toLowerCase();
     
     if (value === 'on' || value === 'true') {
@@ -106,7 +107,7 @@ async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     } else if (value === 'off' || value === 'false') {
         await updateConfig('WELCOME', 'false', botNumber, config, reply);
     } else {
-        reply(`Current Status: ${config.WELCOME}\nUsage: .welcome on/off`);
+        reply(`*ABHI :❯ ${config.WELCOME} HAI 😊*\n\n*JO NEW MEMBER GROUP JOIN KARE GA USKA WELCOME KHUD HI HO JAYE GA 😃 YEH SETTING ON KARNE K LIE LIKHO ☺️*\n*👑 ❮WECOME ON❯ 👑*\n*WELCOME OFF KARNE K LIE LIKHO ☺️*\n*👑 ❮WELCOME OFF❯ 👑*`);
     }
 });
 
@@ -114,7 +115,7 @@ cmd({
     pattern: "goodbye",
     desc: "Enable/Disable goodbye messages",
     category: "settings",
-    react: "🚪"
+    react: "👑"
 },
 async(conn, mek, m, { args, isOwner, reply, botNumber, config }) => {
     if (!isOwner) return reply("🚫 Owner only!");
