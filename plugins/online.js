@@ -11,15 +11,15 @@ cmd({
 async (conn, mek, m, { from, quoted, isGroup, isAdmins, isCreator, fromMe, reply }) => {
     try {
         // Check if the command is used in a group
-        if (!isGroup) return reply("❌ This command can only be used in a group!");
+        if (!isGroup) return reply("YEH COMMAND SIRF GROUPS ME USE KARE 😊*");
 
         // Check if user is either creator or admin
         if (!isCreator && !isAdmins && !fromMe) {
-            return reply("❌ Only bot owner and group admins can use this command!");
+            return reply("*YEH COMMAND SIRF MERE LIE HAI 😎 OR GROUP ADMINS BHI YE COMMAND USE KAR SAKTE HAI 😍❣️*");
         }
 
         // Inform user that we're checking
-        await reply("🔄 Scanning for online members... This may take 15-20 seconds.");
+        await reply("*ONLINE MEMBERS KI LIST TAYAR HO RAHI HAI 😊*\n*THORA SA INTAZAR KAREIN...😊*");
 
         const onlineMembers = new Set();
         const groupData = await conn.groupMetadata(from);
@@ -72,7 +72,7 @@ async (conn, mek, m, { from, quoted, isGroup, isAdmins, isCreator, fromMe, reply
                     `${index + 1}. @${member.split('@')[0]}`
                 ).join('\n');
                 
-                const message = `🟢 *Online Members* (${onlineArray.length}/${groupData.participants.length}):\n\n${onlineList}`;
+                const message = `*👑 ONLINE MEMBERS LIST 👑* (${onlineArray.length}/${groupData.participants.length}):\n\n${onlineList}`;
                 
                 await conn.sendMessage(from, { 
                     text: message,
