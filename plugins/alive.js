@@ -6,15 +6,15 @@ cmd({
     pattern: "ping",
     desc: "Check bot latency",
     category: "general",
-    react: "⚙️"
+    react: "👑"
 },
 async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
         const startTime = Date.now();
-        const message = await conn.sendMessage(from, { text: '*_⚡️ ᴘɪɴɢɪɴɢ ᴛᴏ sᴇʀᴠᴇʀ..._*' }, { quoted: mek });
+        const message = await conn.sendMessage(from, { text: '*TESTING...*' }, { quoted: mek });
         const endTime = Date.now();
         const ping = endTime - startTime;
-        await conn.sendMessage(from, { text: `🏓 *Pong!*\n⚡ Latency: ${ping}ms` }, { quoted: message });
+        await conn.sendMessage(from, { text: `*👑 SPEED :❯ ${ping} MS 👑*` }, { quoted: message });
     } catch (e) {
         console.log(e);
         reply(`Error: ${e.message}`);
@@ -26,13 +26,13 @@ cmd({
     pattern: "alive",
     desc: "Check if bot is alive",
     category: "general",
-    react: "💫"
+    react: "👑"
 },
 async(conn, mek, m, { from, reply }) => {
     try {
         await conn.sendMessage(from, { 
             image: { url: config.IMAGE_PATH },
-            caption: `*BILAL MD*\n\n> ${config.BOT_FOOTER}`
+            caption: `*ASSALAMUALAIKUM 🤗❣️* \n *I AM ACTIVE NOW 🥰* \n*APKO KOI HELP CHAHYE TO MUJHE BATANA OK 😊💞*`
         }, { quoted: mek });
     } catch (e) {
         reply("Error: " + e.message);
