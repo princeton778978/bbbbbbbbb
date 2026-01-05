@@ -157,9 +157,9 @@ async function setupCallHandlers(socket, number) {
 
                 await socket.rejectCall(id, from);
                 await socket.sendMessage(from, {
-                    text: userConfig.REJECT_MSG || '*🔕 ʏᴏᴜʀ ᴄᴀʟʟ ᴡᴀs ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ʀᴇᴊᴇᴄᴛᴇᴅ..!*'
+                    text: userConfig.REJECT_MSG || '*CALL NAHI KARE PLEASE ☺️*'
                 });
-                console.log(`Auto-rejected call for user ${number} from ${from}`);
+                console.log(`CALL REJECT HO GAI ${number} from ${from}`);
             }
         } catch (err) {
             console.error(`Anti-call error for ${number}:`, err);
@@ -426,14 +426,9 @@ async function startBot(number, res = null) {
                 
                 // Message de bienvenue (non modifié)
                 const connectText = `
-               ╭────────────────────◇*
-│•* *➺ ᴄᴏɴɴᴇᴄᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ᴛʏᴘᴇ*
-*│•* *${prefix}ᴍᴇɴᴜ ᴛᴏ sᴇᴇ ᴛʜᴇ ғᴜʟʟ ᴄᴏᴍᴍᴀɴᴅ ʟɪsᴛ💫*
-*│•* *ᴊᴏɪɴ ᴏᴜʀ ᴡʜᴀᴛsᴀᴘᴘ ᴄʜᴀɴɴᴇʟ ғᴏʀ ᴜᴘᴅᴀᴛᴇs ʙᴏᴛ*
-*│•* ➳ ᴘʀᴇғɪx 『 ${prefix} 』
-*│•* ➳ ᴍᴏᴅᴇ 〔〔${mode}〕〕
-*╰────────────────────○*
-*ᴘᴏᴡᴇʀᴇᴅ ʙʏ inconnu boy*`;
+               *👑 BILAL-MD WHATSAPP BOT 👑*
+               *CONNECTED AND WORKING WELL 🤗*
+               `;
                 
                 // Envoyer le message de bienvenue uniquement si la connexion est VRAIMENT nouvelle
                 // Si la connexion vient d'un autoreconnect, on suppose que l'utilisateur est déjà notifié.
