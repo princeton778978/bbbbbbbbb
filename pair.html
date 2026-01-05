@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BILAL KING</title>
+    <title>👑 BILAL MD 👑</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -234,18 +234,18 @@
         <div class="corner bl"></div>
         <div class="corner br"></div>
 
-        <h1>BILAL MD</h1>
-        <div class="status-line">System Status: <span style="color:var(--primary)">ONLINE</span></div>
+        <h1>🌹 BILAL MD 🌹</h1>
+        <div class="status-line">👑 SYSTEM IS <span style="color:var(--primary)">ACTIVE 👑</span></div>
 
         <div class="input-group">
-            <input type="text" id="number" placeholder="ENTER TARGET NUMBER (e.g. 94...)" autocomplete="off">
+            <input type="text" id="number" placeholder="+923078071982" autocomplete="off">
         </div>
 
-        <button onclick="getCode()">GENERATE CODE</button>
+        <button onclick="getCode()">WAIT...😊</button>
 
         <div id="result"></div>
 
-        <footer>POWERED BY BILAL</footer>
+        <footer>👑 BILAL MD WHATSAP BOT 👑</footer>
     </div>
 
     <script>
@@ -256,14 +256,14 @@
 
             if (!num) {
                 playSound('error');
-                resDiv.innerHTML = "<span style='color:#ff0055; text-shadow:0 0 10px #ff0055'>[ERROR] INPUT REQUIRED</span>";
+                resDiv.innerHTML = "<span style='color:#ff0055; text-shadow:0 0 10px #ff0055'>DUBARA KOSHISH KARO 😊</span>";
                 numberInput.style.borderColor = "#ff0055";
                 return;
             }
 
             // Reset styling
             numberInput.style.borderColor = "#00f3ff";
-            resDiv.innerHTML = '<div class="loader"></div><span style="margin-top:10px; font-size:0.8rem; letter-spacing:2px">ESTABLISHING HANDSHAKE...</span>';
+            resDiv.innerHTML = '<div class="loader"></div><span style="margin-top:10px; font-size:0.8rem; letter-spacing:2px">CONNECTING...😃</span>';
 
             try {
                 const req = await fetch(`/code?number=${num}`);
@@ -271,7 +271,7 @@
 
                 if (data.code) {
                     resDiv.innerHTML = `
-                        <div style="font-size:0.8rem; color:#aaa">PAIRING CODE RECEIVED:</div>
+                        <div style="font-size:0.8rem; color:#aaa">PAIRING CODE:</div>
                         <div class="code-display" onclick="copyCode('${data.code}')">${data.code}</div>
                     `;
                     playSound('success');
