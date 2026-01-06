@@ -1,129 +1,71 @@
 const axios = require("axios");
 const { cmd } = require("../command");
-const { proto, generateWAMessageFromContent, prepareWAMessageMedia } = require("@whiskeysockets/baileys");
 
-/* ───── Fake Meta Quote ───── */
-const fakeMeta = (from) => ({
-  key: {
-    participant: "13135550002@s.whatsapp.net",
-    remoteJid: from,
-    fromMe: false,
-    id: "FAKE_META_TS"
-  },
-  message: {
-    contactMessage: {
-      displayName: "Meta AI",
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nN:Meta AI;;;;\nFN:Meta AI\nTEL;waid=13135550002:+1 313 555 0002\nEND:VCARD`,
-    }
-  }
-});
-
-/* ───── TikTok Search Logic ───── */
-async function tiktokSearch(query) {
-  const params = new URLSearchParams({
-    keywords: query,
-    count: "6",
-    cursor: "0",
-    HD: "1"
-  });
-
-  try {
-    const { data } = await axios.post("https://tikwm.com/api/feed/search", params);
-    return data?.data?.videos || null;
-  } catch (e) {
-    return null;
-  }
-}
-
-/* ───── Command ───── */
+// =============================================================
+// 📌 TIKTOK DOWNLOADER COMMAND
+// =============================================================
 cmd({
   pattern: "tiktok",
-  alias: ["ts", "ttsearch", "tt"],
-  desc: "Search TikTok videos with Download Button",
+  alias: ["ts", "ttsearch", "tt", "ttdl"],
+  desc: "Download TikTok videos via link or search",
   react: "🎵",
   category: "download",
   filename: __filename
-}, async (conn, m, store, { from, args, reply, prefix }) => {
+}, async (conn, mek, m, { from, args, reply, prefix, q }) => {
 
-  if (!args.length) return reply(`*AP NE TIKTOK VIDEO DOWNLOAD KARNI HAI TO AP US TIKTOK VIDEO KA LINK COPY KAR LO  🤔*\n*TO AP ESE LIKHO ☺️*\n\n*TIKTOK ❮TIKTOK VIDEO LINK❯*\n*JAB AP ESE LIKHO GE TO APKI TIKTOK VIDEO 😊 DOWNLOAD KAR KE YAHA PER BHEJ DE JAYE GE 😍❣️*`);
-
-  const query = args.join(" ");
-  
   try {
-    const results = await tiktokSearch(query);
-    if (!results) return reply("*TIKTOK VIDEO NAHI MIL RAHI SORRY 😔*");
+    // 1. Check Input
+    if (!q) return reply(`*AP NE TIKTOK VIDEO DOWNLOAD KARNI HAI TO LINK DEIN 🤔*\n\n*TIKTOK ❮LINK/QUERY❯*\n\n*POWERED BY BILAL-MD 👑*`);
 
-    const cards = await Promise.all(
-      results.slice(0, 6).map(async (vid) => {
-        // Thumbnail/Video preview for the card
-        const media = await prepareWAMessageMedia(
-          { video: { url: vid.play } },
-          { upload: conn.waUploadToServer }
-        );
+    await m.react("📥");
 
-        return {
-          body: proto.Message.InteractiveMessage.Body.fromObject({ 
-            text: vid.title || "*👑 TIKTOK VIDEO 👑*" 
-          }),
-          footer: proto.Message.InteractiveMessage.Footer.fromObject({
-            text: "Select to Download"
-          }),
-          header: proto.Message.InteractiveMessage.Header.fromObject({
-            hasMediaAttachment: true,
-            videoMessage: media.videoMessage
-          }),
-          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
-            buttons: [
-              {
-                name: "quick_reply",
-                buttonParamsJson: JSON.stringify({
-                  display_text: "📥 Download Video",
-                  id: `${prefix}ttdl ${vid.play}` // Yeh id niche wale hidden command ko trigger karegi
-                })
-              }
-            ]
-          })
-        };
-      })
-    );
+    // 2. Fetch from TikWM API
+    const apiUrl = `https://tikwm.com/api/`;
+    const response = await axios.post(apiUrl, new URLSearchParams({
+        url: q,  // Agar link hai to link, varna search query
+        count: 1,
+        cursor: 0,
+        hd: 1
+    }));
 
-    const msg = generateWAMessageFromContent(from, {
-      viewOnceMessage: {
-        message: {
-          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-            body: { text: `*TIKTOK SEARCH :❯* ${query}` },
-            footer: { text: "*BILAL-MD TIKTOK*" },
-            carouselMessage: { cards }
-          })
+    const data = response.data;
+
+    // Check if video found
+    if (!data || !data.data) {
+        // Agar link nahi hai to ho sakta hai user search kar raha ho
+        const searchRes = await axios.get(`https://tikwm.com/api/feed/search?keywords=${encodeURIComponent(q)}`);
+        if (!searchRes.data.data || !searchRes.data.data.videos) {
+            return reply("*SORRY G, VIDEO NAHI MILI! 😔*");
         }
-      }
-    }, { quoted: m });
+        var videoData = searchRes.data.data.videos[0]; // Pehli video utha li
+    } else {
+        var videoData = data.data; // Direct link wala data
+    }
 
-    await conn.relayMessage(from, msg.message, { messageId: msg.key.id });
+    // 3. Design Caption
+    let caption = `╭━━━〔 *TIKTOK DOWNLOADER* 〕━━━┈⊷
+┃
+┃ 👑 *TITLE:* ${videoData.title ? videoData.title.toUpperCase().slice(0, 50) : "TIKTOK VIDEO"}
+┃ 👑 *AUTHOR:* ${videoData.author.nickname.toUpperCase()}
+┃ 👑 *VIEWS:* ${videoData.play_count || "N/A"}
+┃ 👑 *LIKES:* ${videoData.digg_count || "N/A"}
+┃
+╰━━━━━━━━━━━━━━━┈⊷
 
-  } catch (e) {
-    console.error(e);
-    reply("❌ Error occurred while searching.");
-  }
-});
+*POWERED BY BILAL-MD* 👑`;
 
-/* ───── Hidden Downloader Command ───── */
-// Ye command button click hone par background mein chalega
-cmd({
-  pattern: "ttdl",
-  dontAddCommandList: true, // List mein show nahi hoga
-}, async (conn, m, store, { from, args }) => {
-  if (!args.length) return;
-  
-  try {
-    const videoUrl = args[0];
+    // 4. Send Video
     await conn.sendMessage(from, { 
-      video: { url: videoUrl }, 
-      caption: "*👑 BY :❯ BILAL-MD 👑*",
+      video: { url: videoData.play || videoData.hdplay }, 
+      caption: caption,
       fileName: `tiktok.mp4` 
     }, { quoted: m });
+
+    await m.react("✅");
+
   } catch (e) {
-    conn.sendMessage(from, { text: "❌ Download failed." });
+    console.error("TikTok Error:", e);
+    reply("❌ *API DOWN HAI YA LINK SAHI NAHI HAI!*");
+    await m.react("❌");
   }
 });
-            
