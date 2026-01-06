@@ -13,7 +13,7 @@ cmd({
     if (!q) return reply("G LINK DEIN!");
 
     // API Call
-    const apiUrl = `https://www.movanest.xyz/v2/fbdl?url=${encodeURIComponent(q)}`;
+    const apiUrl = `https:///movanest.xyz/v2/fbdown?url=${encodeURIComponent(q)}`;
     const { data } = await axios.get(apiUrl);
 
     // Check if video link exists
