@@ -8,7 +8,7 @@ cmd({
   filename: __filename
 }, async (conn, mek, m, { from, q, reply }) => {
   try {
-    if (!q) return reply("❌ Song name ya YouTube link do");
+    if (!q) return reply("*AP NE KOI AUDIO DOWNLOADING KARNI HAI 🤔*\n*TO ESE LIKHO ☺️*\n\n*SONG ❮AUDIO NAME❯*\n\n*JAB AP ESE LIKHO GE 😊 TO APKA AUDIO DOWNLOADING KAR KE 😃 YAHA PER BHEJ DEYA JAYE GA 😍🌹*");
 
     let ytUrl = q;
 
@@ -19,7 +19,7 @@ cmd({
       const searchData = searchRes.data;
 
       if (!searchData.status || !searchData.results || searchData.results.length === 0) {
-        return reply("❌ Song nahi mila");
+        return reply("*AUDIO NAHI MIL RAHA 🥺*");
       }
 
       ytUrl = searchData.results[0].url; // first result
@@ -30,20 +30,20 @@ cmd({
     const { data } = await axios.get(apiUrl);
 
     if (data.status !== true || !data.results) {
-      return reply("❌ Audio fetch nahi hui");
+      return reply("*AUDIO NAHI MIL RAHA 🥺*");
     }
 
     const meta = data.results.metadata;
     const dl = data.results.download;
 
-    if (!dl?.url) return reply("❌ Audio link missing");
+    if (!dl?.url) return reply("*SIRF YOUTUBE VIDEO LINK DO 🤗*");
 
     // ℹ️ Simple info
     await reply(
-      `🎵 *Song Info*\n\n` +
-      `📌 ${meta.title}\n` +
-      `👤 ${meta.author.name}\n` +
-      `⏱ ${meta.duration.timestamp}`
+      `*👑 AUDIO INFO 👑*\n\n` +
+      `*👑 AUDIO NAME 👑* \n${meta.title}\n\n` +
+      `*👑 TIKTOK ID 👑* \n ${meta.author.name}\n\n` +
+      `*👑 TIME 👑* \n ${meta.duration.timestamp}\n\n*👑 BY :❯ BILAL-MD 👑*`
     );
 
     // 🔊 Direct audio
