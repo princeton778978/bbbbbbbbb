@@ -74,7 +74,18 @@ cmd({
 *║ 👑 ONLINE*
 *╚═════════════════╝*
 
+*👑 ClICK HERE FOR HELP 👑*
 
+*👑 DEVELEPER 👑*
+*https://akaserein.github.io/Bilal/*
+
+*👑 SUPPORT CHANNEL 👑* 
+*https://whatsapp.com/channel/0029VbBXuGe4yltMLngL582d*
+
+*👑 SUPPORT GROUP 👑*
+*https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t*
+
+*👑 BILAL-MD WHATSAPP BOT 👑*
 `;
 
     await conn.sendMessage(from, {
