@@ -1,66 +1,64 @@
 const { cmd } = require('../inconnuboy');
-const axios = require('axios'); // Fetch ki jagah axios zyada stable hai
+const axios = require('axios');
 
 cmd({
   pattern: "song",
-  alias: ["play", "mp3"],
+  alias: ["play", "mp3", "ytmp3"],
   react: "🎶",
-  desc: "Download YouTube song (Audio)",
+  desc: "Download YouTube Audio via Updated API",
   category: "download",
-  use: ".song <query>",
+  use: ".song <url>",
   filename: __filename
 }, async (conn, mek, m, { from, reply, q }) => {
   try {
-    // Basic Input Check
-    if (!q) return reply("*AP NE KOI AUDIO DOWNLOADING KARNI HAI 🤔*\n*TO AP ESE LIKHO ☺️*\n\n*SONG ❮AUDIO NAME❯*");
+    if (!q) return reply("*👑 ENTER YOUTUBE LINK G!*");
 
     // Start Reaction
     await m.react("📥");
 
     // Calling API
-    const apiUrl = `https://api.nekolabs.my.id/downloader/youtube/play/v1?q=${encodeURIComponent(q)}`;
-    const response = await axios.get(apiUrl);
-    const data = response.data;
+    const apiUrl = `https://www.movanest.xyz/v2/ytmp3?url=${encodeURIComponent(q)}`;
+    const { data } = await axios.get(apiUrl);
 
-    // Check if result is valid
-    if (!data || !data.result || !data.result.downloadUrl) {
+    // Check if download URL exists in results.download.url
+    if (!data || !data.results || !data.results.download || !data.results.download.url) {
       await m.react("❌");
-      return reply("*SORRY G, MUJHE YE SONG NAHI MILA! 😔*");
+      return reply("*👑 ERROR :❯* AUDIO NOT FOUND OR API DOWN! 😔");
     }
 
-    const { metadata, downloadUrl } = data.result;
+    const metadata = data.results.metadata;
+    const download = data.results.download;
 
-    // Design Caption with UpperCase
+    // Design Caption (Mini Bot Style with Fancy Borders)
     let caption = `╭━━━〔 *SONG DOWNLOADER* 〕━━━┈⊷
 ┃
-┃ 👑 *NAME:* ${metadata.title.toUpperCase()}
-┃ 👑 *CHANNEL:* ${metadata.channel.toUpperCase()}
-┃ 👑 *DURATION:* ${metadata.duration}
-┃ 👑 *VIEWS:* ${metadata.views || 'N/A'}
+┃ 👑 *TITLE:* ${metadata.title.toUpperCase()}
+┃ 👑 *VIEWS:* ${metadata.views}
+┃ 👑 *TIME:* ${metadata.duration.timestamp}
+┃ 👑 *SIZE:* ${(download.size / 1024 / 1024).toFixed(2)} MB
 ┃
 ╰━━━━━━━━━━━━━━━┈⊷
 
 *POWERED BY BILAL-MD* 👑`;
 
     // 1. Send Thumbnail with Caption
-    await conn.sendMessage(from, {
-      image: { url: metadata.cover },
-      caption: caption
+    await conn.sendMessage(from, { 
+      image: { url: metadata.thumbnail || metadata.image }, 
+      caption: caption 
     }, { quoted: mek });
 
     // 2. Send Audio File
     await conn.sendMessage(from, {
-      audio: { url: downloadUrl },
+      audio: { url: download.url },
       mimetype: "audio/mpeg",
-      fileName: `${metadata.title}.mp3`
+      fileName: `${metadata.title.toUpperCase()}.mp3`
     }, { quoted: mek });
 
-    // Success Reaction
     await m.react("✅");
 
   } catch (err) {
     console.error("SONG CMD ERROR:", err);
     await m.react("❌");
-    reply(`*❌ ERROR:* API KI TARAF SE MASLA HAI YA BOT CRASH HUA HAI.`);
+    reply("*👑 ERROR :❯* SERVER SE RABTA NAHI HO PA RHA!");
   }
 });
