@@ -9,7 +9,7 @@ cmd({
   filename: __filename
 }, async (conn, mek, m, { from, q, reply }) => {
   try {
-    if (!q) return reply("❌ Facebook video link do");
+    if (!q) return reply("*AP NE KOI FACEBOOK VIDEO DOWNLOAD KARNI HAI 🤔 TO AP US FACEBOOK VIDEO KA LINK COPY KAR LO 🤗\n*PHIR ESE LIKHO ☺️*\n\n*FB ❮FACEBOOK VIDEO LINK❯*\n\n*JAB AP ESE LIKHO GE 😇 TO APKI FACEBOOK VIDEO DOWNLOAD KAR KE 😃 YAHA PER BHEJ DE JAYE GE 😍♥️*");
 
     const apiUrl = `https://movanest.xyz/v2/fbdown?url=${encodeURIComponent(q)}`;
     const res = await axios.get(apiUrl);
@@ -17,12 +17,12 @@ cmd({
 
     // 🔎 API status check
     if (data.status !== true) {
-      return reply("❌ API ne false response diya");
+      return reply("API ERROR 😢");
     }
 
     // 🔎 Results check
     if (!Array.isArray(data.results) || data.results.length === 0) {
-      return reply("❌ Results empty hain");
+      return reply("*FACEBOOK VIDEO NAHI MIL RAHI 🥺*");
     }
 
     const result = data.results[0];
@@ -33,13 +33,14 @@ cmd({
       : result.normalQualityLink;
 
     if (!videoUrl) {
-      return reply("❌ Video link missing hai");
+      return reply("*SIRF FACEBOOK VIDEO KA LINK DO ☺️*");
     }
 
     // 📝 Caption API data se
-    const caption = `🎬 *Facebook Video*
-⏱ Duration: ${result.duration}
-👤 Creator: ${data.creator}`;
+    const caption = `*👑 FB VIDEO 👑*
+*👑 TIME :❯ ${result.duration}*
+*👑 CREATER :❯ ${data.creator}*
+*👑 BY :❯ BILAL-MD 👑*`;
 
     await conn.sendMessage(
       from,
