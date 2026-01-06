@@ -36,17 +36,16 @@ async (conn, mek, m, { from, reply }) => {
     const mode = config.WORK_TYPE?.toUpperCase() || "PUBLIC";
 
     // Header Design
-    let menu = `╭━━━〔 *BILAL-MD* 〕━━━┈⊷
-┃
-┃  👑 *USER:* @${sender.split("@")[0]}
-┃  👑 *MODE:* ${mode}
-┃  👑 *PREFIX:* ${prefix}
-┃  👑 *COMMANDS:* ${totalCommands}
-┃  👑 *UPTIME:* ${uptime()}
-┃
-╰━━━━━━━━━━━━━━┈⊷
+    let menu = `*╭━━━〔 BILAL-MD 〕━━━┈⊷*
+*┃  👑 USER :❯ @${sender.split("@")[0]}*
+*┃  👑 MODE :❯ ${mode}*
+*┃  👑 PREFIX :❯ ❮ ${prefix} ❯*
+*┃  👑 COMMANDS :❯ ${totalCommands}*
+*┃  👑 UPTIME :❯ ${uptime()}*
+*┃*
+*╰━━━━━━━━━━━━━━┈⊷*
 
-*HAYE G 🤗 YE RAHI MERE BOT KI COMMAND LIST* 🌹`;
+*HI G 🤗 YE RAHI MERE BOT KI COMMAND LIST* 🌹`;
 
     // Grouping Categories
     let categories = {};
