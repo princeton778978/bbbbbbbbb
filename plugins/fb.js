@@ -4,7 +4,7 @@ const axios = require('axios');
 cmd({
   pattern: "fb",
   alias: ["facebook", "fbdl"],
-  react: "🔵",
+  react: "☺️",
   desc: "Download Facebook Videos",
   category: "download",
   use: ".fb <url>",
@@ -14,10 +14,10 @@ cmd({
     if (!q) return reply("*👑 ENTER FACEBOOK VIDEO LINK G!*");
 
     // Start Reaction
-    await m.react("📥");
+    await m.react("😃");
 
     // Replace this with your actual API endpoint
-    const apiUrl = `YOUR_API_URL_HERE?url=${encodeURIComponent(q)}`; 
+    const apiUrl = `https://www.movanest.xyz/v2/fbdown?url=${encodeURIComponent(q)}`; 
     const { data } = await axios.get(apiUrl);
 
     if (!data || !data.status || !data.results.length) {
