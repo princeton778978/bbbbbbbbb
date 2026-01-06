@@ -57,6 +57,8 @@ cmd({
 *║ 👑 SETPREFIX*
 *║ 👑 WELCOME*
 *║ 👑 GOODBYE*
+*║ 👑 ANTIDELETE*
+*║ 👑 ANTICALL*
 *║ 👑 MODE*
 *╚═════════════════╝*
 
@@ -66,6 +68,12 @@ cmd({
 *║ 👑 TIKTOK*
 *║ 👑 FB*
 *╚═════════════════╝*
+
+*╔══〘 👑 GROUP 👑 〙══╗*
+*║ 👑 TAGALL*
+*║ 👑 ONLINE*
+*╚═════════════════╝*
+
 
 `;
 
