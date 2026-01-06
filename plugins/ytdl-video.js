@@ -4,24 +4,24 @@ const ytSearch = require("yt-search");
 
 cmd({
   pattern: "video",
-  alias: ["ytmp4", "v"],
+  alias: ["ytmp4", "v", "ytvideo"],
   desc: "Download YouTube videos by name or keyword",
   category: "media",
-  react: "🎬",
+  react: "☺️",
   filename: __filename
 }, async (conn, mek, m, { from, q }) => {
   if (!q) {
-    return conn.sendMessage(from, { text: "❌ Please enter a YouTube video keyword or name!" }, { quoted: mek });
+    return conn.sendMessage(from, { text: "*AP NE KOI YOUTUBE VIDEO DOWNLOAD KARNI HAI 🤔*\n*TO AP ESE LIKHO ☺️*\n\n*VIDEO ❮VIDEO KA NAME❯*\n\n*JAB AP ESE LIKHO GE 🤗 TO APKI VIDEO DOWNLOAD KAR KE 😃 YAHA PER BHEJ DE JAYE GE 😍🌹*" }, { quoted: mek });
   }
 
   try {
     // 🔍 Searching reaction
-    await conn.sendMessage(from, { react: { text: "🔎", key: mek.key } });
+    await conn.sendMessage(from, { react: { text: "😃", key: mek.key } });
 
     // 🔎 Search YouTube
     const searchResult = await ytSearch(q);
     const video = searchResult.videos?.[0];
-    if (!video) throw new Error("No video found");
+    if (!video) throw new Error("*YEH VIDEO NAHI MILI 😔*");
 
     // 🎯 Fetch download info
     const downloadInfo = await fetchVideoDownload(video);
@@ -33,12 +33,12 @@ cmd({
     await sendStyledVideo(conn, from, mek, video, downloadInfo);
 
     // ✅ Success reaction
-    await conn.sendMessage(from, { react: { text: "✅", key: mek.key } });
+    await conn.sendMessage(from, { react: { text: "😍", key: mek.key } });
 
   } catch (err) {
     console.error(err);
-    await conn.sendMessage(from, { text: "❌ Something went wrong! Please try again later." }, { quoted: mek });
-    await conn.sendMessage(from, { react: { text: "❌", key: mek.key } });
+    await conn.sendMessage(from, { text: "*VIDEO NAHI MIL RAHI 🥺*" }, { quoted: mek });
+    await conn.sendMessage(from, { react: { text: "🥺", key: mek.key } });
   }
 });
 
@@ -56,7 +56,7 @@ async function fetchVideoDownload(video) {
       const res = await axios.get(apis[i]);
       const data = i === 0 ? res.data.result : res.data?.data;
       const url = data?.download_url || data?.url;
-      if (!url) throw new Error("No download URL found");
+      if (!url) throw new Error("*SIRF YOUTUBE VIDEO LINK DO 🤗*");
 
       return {
         title: data.title || video.title,
@@ -65,7 +65,7 @@ async function fetchVideoDownload(video) {
         quality: data.quality || (i === 0 ? "HD" : "Standard"),
       };
     } catch (e) {
-      if (i === apis.length - 1) throw new Error("All APIs failed");
+      if (i === apis.length - 1) throw new Error("API ERROR 😢");
     }
   }
 }
@@ -74,21 +74,21 @@ async function fetchVideoDownload(video) {
 // Helper: Styled Preview
 // -------------------
 async function sendStyledPreview(conn, from, mek, video, info) {
-  const caption = `🎬 *Video Preview* 🎬\n\n` +
-                  `📌 *Title:* ${info.title}\n` +
-                  `⏱️ *Duration:* ${video.timestamp}\n` +
-                  `👁️ *Views:* ${video.views.toLocaleString()}\n` +
-                  `📺 *Quality:* ${info.quality}\n` +
-                  `📅 *Published:* ${video.ago}\n\n` +
-                  `💡 Click the video below to stream or download!`;
+  const caption = `*👑 VIDEO INFO 👑*\n\n` +
+                  `*👑 NAME :❯ ${info.title}*\n` +
+                  `*👑 TIME :❯ ${video.timestamp}*\n` +
+                  `*👑 VIEWS :❯ ${video.views.toLocaleString()}*\n` +
+                  `*👑 QUALITY :❯ ${info.quality}*\n` +
+                  `*👑 PUBLISHED :❯ ${video.ago}*\n\n` +
+                  `*👑 BILAL-MD WHATSAPP BOT 👑*`;
 
   await conn.sendMessage(from, {
     image: { url: info.thumbnail },
     caption,
     contextInfo: {
       externalAdReply: {
-        title: "BILAL MD Bot | Video Stream",
-        body: "Seamless YouTube Video Streaming",
+        title: "👑 BILAL-MD 👑",
+        body: "🌹 YOUTUBE VIDEO 🌹",
         thumbnailUrl: info.thumbnail,
         sourceUrl: video.url,
         mediaType: 1,
@@ -102,9 +102,9 @@ async function sendStyledPreview(conn, from, mek, video, info) {
 // Helper: Styled Video
 // -------------------
 async function sendStyledVideo(conn, from, mek, video, info) {
-  const caption = `🎥 *Streaming Now* 🎥\n\n` +
-                  `💻 Powered by BILAL MD Bot\n` +
-                  `↻ Click play to watch or save locally!`;
+  const caption = `*👑 VIDEO DOWNLOADED 👑*\n\n` +
+                  `*👑 BY 👑*\n` +
+                  `*👑 BILAL-MD 👑*`;
 
   await conn.sendMessage(from, {
     video: { url: info.download_url },
@@ -112,8 +112,8 @@ async function sendStyledVideo(conn, from, mek, video, info) {
     caption,
     contextInfo: {
       externalAdReply: {
-        title: "BILAL XMD Bot | Stream & Download",
-        body: "Watch instantly or save for later",
+        title: "👑 BILAL-MD VIDEO 👑",
+        body: "🌹 YOUTUBE VIDEO 🌹",
         thumbnailUrl: info.thumbnail,
         sourceUrl: video.url,
         mediaType: 1,
