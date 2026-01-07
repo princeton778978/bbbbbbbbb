@@ -42,7 +42,7 @@ cmd({
 *║👑 MODE :❯ ${mode}*
 *║👑 UPTIME :❯ ${uptime()}*
 *║👑 PING :❯ ${ping} MS*
-*║👑 PLATFORM :❯ ${platform}*
+*║👑 PLATFORM :❯ BILAL❮X❯ar.m64*
 *╚═════════════════╝*
 
 * HI @${sender.split("@")[0]} G 🥰*
