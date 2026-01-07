@@ -30,12 +30,12 @@ cmd({
     }
 
     // Message before block
-    await reply("*AP MUJHE BAHUT TANG KAR RAHE HO 😒 IS LIE BLOCK KAR RAHA HOON*");
+    await reply("*AP MUJHE BAHUT TANG KAR RAHE HO 😒 IS LIE MENE APKO BLOCK KAR DYA HAI 😏*");
 
     // ⏱️ Small delay
     setTimeout(async () => {
       await conn.updateBlockStatus(jid, "block");
-      await conn.sendMessage(from, { react: { text: "😡", key: mek.key }});
+      await conn.sendMessage(from, { react: { text: "😒", key: mek.key }});
     }, 1500);
 
   } catch (e) {
