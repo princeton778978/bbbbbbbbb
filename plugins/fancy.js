@@ -22,7 +22,7 @@ cmd({
     }
 
     // 🔗 API call
-    const apiUrl = `https://www.dark-yasiya-api.site/other/font?text=${encodeURIComponent(q)}`;
+    const apiUrl = `https://www.movanest.xyz/v2/fancytext?word=${encodeURIComponent(q)}`;
     const { data } = await axios.get(apiUrl);
 
     if (!data.status || !data.result) {
