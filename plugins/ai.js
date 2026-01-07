@@ -24,21 +24,19 @@ cmd({
     // typing feel
     await conn.sendPresenceUpdate('composing', from);
 
-    // 🔗 AI API
-    const API_URL = "https://ai-api-key-699ac94e6fae.herokuapp.com/api/ask";
+    // 🔗 New API URL
+    const API_URL = `https://www.movanest.xyz/v2/powerbrainai?query=${encodeURIComponent(q)}`;
 
-    const res = await axios.post(API_URL, {
-      prompt: q
-    }, { timeout: 60000 });
+    const res = await axios.get(API_URL, { timeout: 60000 });
 
-    if (res.data && res.data.reply) {
-      await reply(res.data.reply);
+    if (res.data && res.data.status && res.data.result) {
+      await reply(res.data.result);
     } else {
       await reply("❌ AI se jawab nahi mila");
     }
 
   } catch (err) {
-    console.log("AI COMMAND ERROR:", err);
+    console.log("AI COMMAND ERROR:", err.message);
     reply("❌ AI server error / busy hai");
   }
 });
