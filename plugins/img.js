@@ -6,7 +6,7 @@ cmd({
   alias: ["image", "pic", "photo", "gimage"],
   react: "📸",
   category: "media",
-  desc: "Search and send image from Google",
+  desc: "Search and send 5 random images from Google",
   filename: __filename
 }, async (conn, mek, m, { from, q, reply }) => {
   try {
@@ -28,13 +28,24 @@ cmd({
       return reply("❌ Koi image nahi mili");
     }
 
-    // ✅ First image URL
-    const imageUrl = res.data.results[0];
+    // ✅ Remove duplicates & shuffle
+    const uniqueImages = [...new Set(res.data.results)];
+    const shuffled = uniqueImages.sort(() => Math.random() - 0.5);
+    const selected = shuffled.slice(0, 5); // first 5 random images
 
-    await conn.sendMessage(from, {
-      image: { url: imageUrl },
-      caption: `*📸 Image Result for:* ${q}`
-    }, { quoted: mek });
+    // ✅ Send images one by one
+    for (let i = 0; i < selected.length; i++) {
+      try {
+        await conn.sendMessage(from, {
+          image: { url: selected[i] },
+          caption: `*📸 Image Result for:* ${q} (${i+1}/${selected.length})`
+        }, { quoted: mek });
+
+        await new Promise(r => setTimeout(r, 700)); // small delay for smooth sending
+      } catch (err) {
+        console.log("IMAGE SEND ERROR:", err.message);
+      }
+    }
 
   } catch (err) {
     console.error("IMAGE COMMAND ERROR:", err.message);
