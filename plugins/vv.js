@@ -1,4 +1,4 @@
-const { cmd } = require("../command");
+const { cmd } = require("../inconnuboy");
 
 // Contact for verified quoting
 const quotedContact = {
